@@ -1,0 +1,21 @@
+# Virtual environment
+.venv/
+env/
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Jupyter/VS Code
+.ipynb_checkpoints/
+.vscode/
+
+# Environment
+.env
+
+# Local data
+data/*.csv
+data/chroma/
+
+# Logs
+*.log
