@@ -1,0 +1,5 @@
+#!/Users/neeraj/Documents/Python/CX_Chatbot_Agent/cx_agent/bin/python3.12
+
+from idlelib.pyshell import main
+if __name__ == '__main__':
+    main()

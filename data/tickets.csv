@@ -1,0 +1,3 @@
+ticket_id,user_id,issue,status,created_at
+T001,U101,Wi-Fi not working,open,2024-04-01 10:00
+T002,U102,Room cleaning not done,resolved,2024-04-02 14:30
