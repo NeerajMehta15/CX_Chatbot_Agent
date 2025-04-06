@@ -6,3 +6,4 @@ pandas
 python-dotenv
 scipy
 sentence-transformers
+langgraph
