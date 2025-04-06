@@ -19,3 +19,6 @@ data/chroma/
 
 # Logs
 *.log
+
+
+echo "cx_agent/lib/" >> .gitignore
