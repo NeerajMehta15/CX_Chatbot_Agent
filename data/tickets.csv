@@ -1,3 +1,17 @@
 ticket_id,user_id,issue,status,created_at
 T001,U101,Wi-Fi not working,open,2024-04-01 10:00
 T002,U102,Room cleaning not done,resolved,2024-04-02 14:30
+T1743954163,U101,"Here is a clear and concise summary for a support ticket:
+
+""Request for Pest Control Service in Resident's Room""",open,2025-04-06 21:12
+T1743954507,U102,"Here is a clear and concise summary for a support ticket:
+
+**Issue:** Payment Failure - Unable to Complete Transaction
+
+**Description:** I attempted to make a payment, but it failed. I need assistance to resolve the issue and complete the transaction successfully.",open,2025-04-06 21:18
+T1743954879,U101,"Here is a clear summary for a support ticket:
+
+**Issue:** Payment Failure - Unable to Complete Transaction",open,2025-04-06 21:24
+T1743954994,U101,"Here is a clear and concise summary for a support ticket:
+
+""Issue: Uncertainty about Rent Due Date for Current Month - Seeking Clarification on Payment Deadline""",open,2025-04-06 21:26

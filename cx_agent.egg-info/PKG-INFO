@@ -1,0 +1,10 @@
+Metadata-Version: 2.1
+Name: cx-agent
+Version: 0.1
+Requires-Dist: langchain
+Requires-Dist: langchain-community
+Requires-Dist: langchainhub
+Requires-Dist: chromadb
+Requires-Dist: pandas
+Requires-Dist: python-dotenv
+Requires-Dist: groq

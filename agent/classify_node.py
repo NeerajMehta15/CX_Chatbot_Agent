@@ -1,12 +1,13 @@
-from langchain.chat_models import ChatGroq
+from langchain_groq import ChatGroq
 from langchain.schema import SystemMessage, HumanMessage
-import config
+import utils.config as config
 
+print("🔐 GROQ_API_KEY in memory:", config.GROQ_API_KEY)
 
 def classify_node(state: dict) -> dict:
     """
     Classify user intent using Groq's LLM via LangChain.
-    
+
     Input state must contain:
     - 'user_query': the raw query
     - 'user_id': the user's ID
@@ -16,27 +17,37 @@ def classify_node(state: dict) -> dict:
     """
     user_query = state.get("user_query", "")
 
-    system_prompt = (
-        "You are a helpful assistant for classifying customer support queries.\\n"
-        "Classify the following user query into one of these categories: faq, ticket, payment, user_info, fallback.\\n"
-        "Just reply with one word — the category name."
+    # Updated prompt for better classification logic
+    system_prompt = SystemMessage(content="""
+You are a classification assistant for a residential support chatbot.
+
+Classify user queries into one of the following:
+
+- faq: If the user is asking about general info, help, or known issues like payment failures, service availability, policies, etc.
+- ticket: Only if the user is **raising a personal complaint or service request** (e.g., "My Wi-Fi is not working", "There is a leak in my bathroom").
+- payment: If the user asks about rent, GST, amount paid, due date, refunds, etc.
+- user_info: If the user asks about their personal info like room number, check-in, ID details, address, etc.
+- fallback: If you are not sure or the user is just greeting or unclear.
+
+Examples:
+Query: What time is check-in? → faq  
+Query: My AC is not working → ticket  
+Query: When is my rent due? → payment  
+Query: What is my room number? → user_info  
+Query: Hello → fallback
+
+Only respond with one word: faq, ticket, payment, user_info, or fallback.
+""")
+
+    human_prompt = HumanMessage(content=f"Query: {user_query}\nAnswer:")
+
+    # Use Groq’s LLM
+    llm = ChatGroq(
+        groq_api_key=config.GROQ_API_KEY,
+        model_name="llama3-70b-8192"
     )
 
-    few_shots = [
-        ("What time is check-in?", "faq"),
-        ("My Wi-Fi is not working", "ticket"),
-        ("When is my rent due?", "payment"),
-        ("What is my room number?", "user_info"),
-        ("Hi", "fallback")
-    ]
-
-    examples = "\\n".join([f"Query: {q}\\nAnswer: {a}" for q, a in few_shots])
-    final_prompt = (f"{system_prompt}\\n\\n{examples}\\n\\nQuery: {user_query}\\nAnswer:")
-
-    llm = ChatGroq(groq_api_key=config.GROQ_API_KEY,model_name="llama3-70b-8192")
-
-    response = llm.invoke([SystemMessage(content="You are a classification assistant."),HumanMessage(content=final_prompt)])
-
+    response = llm.invoke([system_prompt, human_prompt])
     intent = response.content.strip().lower()
 
-    return {**state,"intent": intent}
+    return {**state, "intent": intent}

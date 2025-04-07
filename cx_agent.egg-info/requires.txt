@@ -1,0 +1,7 @@
+langchain
+langchain-community
+langchainhub
+chromadb
+pandas
+python-dotenv
+groq

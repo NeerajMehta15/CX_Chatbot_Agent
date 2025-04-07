@@ -1,4 +1,11 @@
 from agent.langgraph_flow import run_agent
+import utils.config as config
+
+from tools.faq_tool import initialize_vector_store
+
+
+# ✅ Initialize vector store before user starts chatting
+config.VECTOR_STORE = initialize_vector_store()
 
 def main():
     print("Welcome to the CX Agent CLI 🚀")
@@ -6,7 +13,7 @@ def main():
     print("You can type 'exit' anytime to quit.")
 
     while True:
-        user_query = input("\\nYou: ").strip()
+        user_query = input("\nYou: ").strip()
         if user_query.lower() in ["exit", "quit"]:
             print("Goodbye! 👋")
             break
@@ -14,7 +21,7 @@ def main():
         feedback = input("Was this issue resolved? (yes/no): ").strip().lower()
         response = run_agent(user_query=user_query, user_id=user_id, feedback=feedback)
 
-        print(f"\\nAgent: {response.get('final_response')}")
+        print(f"\nAgent: {response.get('final_response')}")
         if response.get("escalation_status") == "ticket_created":
             print(f"Ticket ID: {response.get('ticket_id')}")
 

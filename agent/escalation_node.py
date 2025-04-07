@@ -1,7 +1,7 @@
 from tools.ticket_tool import create_ticket
-from langchain.chat_models import ChatGroq
+from langchain_groq import ChatGroq
 from langchain.schema import HumanMessage, SystemMessage
-import config
+import utils.config as config
 
 
 def summarize_issue(user_query: str) -> str:
