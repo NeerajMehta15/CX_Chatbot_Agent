@@ -13,4 +13,4 @@ huggingface-hub
 torch
 python-dotenv
 langchain-mistralai
-
+streamlit
