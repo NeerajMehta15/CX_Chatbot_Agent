@@ -1,110 +1,104 @@
-CX Agent for Stanza Living
-A virtual assistant for Stanza Living residents, powered by LangChain, Groq AI, and Streamlit. This assistant handles user queries, provides answers from the FAQ, creates support tickets, and collects feedback.
+# CX Agent for Stanza Living
 
-Overview
-This system is designed to provide support to Stanza Living residents. The agent will classify user queries, retrieve relevant answers from an FAQ database, and create support tickets when necessary.
+A virtual assistant for Stanza Living residents, powered by **LangChain**, **Groq AI**, and **Streamlit**. This assistant handles user queries, provides answers from FAQs, creates support tickets, and collects feedback.
 
-Core Components
-LangChain:
+---
 
-Manages the flow of data and integrates Groq AI for intent classification.
+## Overview
 
-Groq AI (via LangChain):
+The CX Agent is designed to provide real-time support to Stanza Living residents. It classifies incoming queries, retrieves relevant answers from a FAQ database, and creates support tickets when needed.
 
-A language model used to classify queries into different categories such as faq, ticket, payment, user_info, and fallback.
+---
 
-Chroma:
+## Core Components
 
-A vector store to handle the storage and retrieval of FAQ data. It ensures that we can efficiently match queries with relevant answers.
+- **LangGraph**  
+  Manages the data flow and integrates Groq AI for intent classification.
 
-Streamlit UI:
+- **Groq AI (via LangChain)**  
+  Classifies queries into categories: `faq`, `ticket`, `payment`, `user_info`, and `fallback`.
 
-Provides an interactive interface for users to interact with the CX Agent, enter queries, and receive responses.
+- **Chroma**  
+  A vector store for storing and retrieving FAQ data via semantic search.
 
-Key Features
-Query Classification:
+- **Streamlit UI**  
+  Provides an intuitive and interactive user interface for residents.
 
-Classifies user queries into categories: faq, ticket, payment, user_info, and fallback.
+---
 
-FAQ: Queries related to general information such as policies, services, etc.
+## Key Features
 
-Ticket: Issues that require support or action (e.g., service requests).
+- **Query Classification**
+  - `faq`: General questions (e.g., policies, services)
+  - `ticket`: Support issues
+  - `payment`: Rent or billing queries
+  - `user_info`: Room number, check-in status, etc.
+  - `fallback`: Unclear or uncategorized queries
 
-Payment: Rent and billing-related inquiries.
+- **FAQ Retrieval**  
+  Matches user queries with existing FAQ responses using Chroma vector search.
 
-User Info: Queries about personal details such as room number, check-in status, etc.
+- **Ticket Creation**  
+  Automatically raises a support ticket if the issue cannot be resolved via FAQ.
 
-Fallback: Handles undefined or unclear queries.
+- **Feedback Collection**  
+  After each interaction, the user is asked if their query was resolved.
 
-FAQ Retrieval:
+- **Reclassification on Feedback**  
+  If unresolved, the issue is escalated or converted into a ticket.
 
-Users can ask questions, and if the query matches a FAQ, the system fetches the appropriate answer.
+---
 
-Ticket Creation:
+## Implementation Flow
 
-If the issue is not resolved through the FAQ, a support ticket is created for further assistance.
+1. **User Query Input**  
+   Example: _"When is my rent due?"_
 
-Feedback Collection:
+2. **Intent Classification**  
+   Groq AI classifies the query using LangChain routing logic.
 
-After resolving a query, the system collects feedback on the resolution (e.g., whether the issue was solved or not).
+3. **Response Handling**  
+   - `faq`: Retrieve answer from FAQ
+   - `ticket`: Create a support ticket
+   - `payment` / `user_info`: Fetch specific user or billing details
 
-Implementation Flow
-User Query Input: The user enters a query such as "When is my rent due?".
+4. **Feedback Request**  
+   The system asks the user if the response resolved their issue.
 
-Intent Classification:
+5. **Escalation Flow**  
+   If the feedback is negative, a ticket is generated or escalated further.
 
-The system uses Groq AI via LangChain to classify the query. The classification model checks the query and assigns it a category, such as faq, ticket, etc.
+---
 
-FAQ Retrieval or Ticket Creation:
+## 📁 Code Structure
 
-If the query is classified as faq, the system retrieves an answer from the FAQ database.
+### `app.py`
+- Main CLI interface
+- Prompts for user ID and query
+- Handles query classification and feedback loop
 
-If it’s classified as ticket, a support ticket is created, and the user is given a ticket ID.
+### `faq_tool.py`
+- Loads FAQs
+- Uses Chroma for vector storage and retrieval
+- Contains `initialize_vector_store()` for FAQ DB setup
+- Integrates Groq AI for classification
 
-Feedback Request:
+### `langgraph_flow.py`
+- Central routing logic with LangGraph
+- Manages query flow based on classification
+- Controls whether to return FAQ, trigger ticketing, or request feedback
 
-After providing an answer or creating a ticket, the system requests feedback from the user to understand if the issue was resolved.
+---
 
-Reclassification on Feedback:
+## Example Interactions
 
-If the feedback indicates the issue is unresolved, the system reverts to ticketing or escalates the issue accordingly.
+```plaintext
+User: When is my rent due?
+Agent: Your rent is due on the 5th of each month.
 
-Code Flow
-app.py:
+User: My Wi-Fi is not working
+Agent: A support ticket has been created for you. Your ticket ID is T1743954970.
 
-The main entry point. It runs a CLI interface where users can input their queries and interact with the agent.
-
-The system prompts users for their user ID, collects queries, and handles the feedback.
-
-faq_tool.py:
-
-Contains functions to load and process FAQ data using Chroma for storing vectors and retrieving them when queried.
-
-The initialize_vector_store function loads the FAQ database and stores it in the Chroma vector store.
-
-It then uses the Groq AI model for classifying the intent of each user query.
-
-langgraph_flow.py:
-
-Coordinates the different components using LangChain to control the flow and invoke specific actions based on the classified intent.
-
-Handles the decision-making process, such as deciding between answering an FAQ or creating a support ticket.
-
-Feedback Handling:
-
-After receiving a response (whether from FAQ or ticketing), the system asks the user for feedback. If the user’s issue is unresolved, it triggers the ticket creation flow.
-
-Example Interactions
-User Query: "When is my rent due?"
-
-Agent Response: "Your rent is due on the 5th of each month."
-
-User Query: "My Wi-Fi is not working"
-
-Agent Response: "A support ticket has been created for you. Your ticket ID is T1743954970."
-
-Feedback: Was this issue resolved?
-
-User Answer: "Yes"
-
-Agent Response: "Thank you for your feedback! Have a great day!"
+Agent: Was this issue resolved?
+User: Yes
+Agent: Thank you for your feedback! Have a great day!
