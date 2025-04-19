@@ -8,7 +8,7 @@ load_dotenv(dotenv_path=env_path)
 
 # API keys
 HUGGINGFACE_API_TOKEN = os.getenv("HUGGINGFACE_API_TOKEN")
-GROQ_API_KEY = os.getenv("GROQ_API_KEY") or "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"
+GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
 # Embedding & vector store settings
 EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL", "sentence-transformers/all-MiniLM-L6-v2")
