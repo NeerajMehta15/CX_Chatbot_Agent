@@ -2,8 +2,6 @@ from langchain_groq import ChatGroq
 from langchain.schema import SystemMessage, HumanMessage
 import utils.config as config
 
-print("🔐 GROQ_API_KEY in memory:", config.GROQ_API_KEY)
-
 def classify_node(state: dict) -> dict:
     """
     Classify user intent using Groq's LLM via LangChain.
@@ -17,7 +15,6 @@ def classify_node(state: dict) -> dict:
     """
     user_query = state.get("user_query", "")
 
-    # Updated prompt for better classification logic
     system_prompt = SystemMessage(content="""
 You are a classification assistant for a residential support chatbot.
 
