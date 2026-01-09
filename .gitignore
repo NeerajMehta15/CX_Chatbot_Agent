@@ -13,12 +13,11 @@ __pycache__/
 # Environment
 .env
 
-# Local data
-data/*.csv
+# Vector store (will be regenerated)
 data/chroma/
 
 # Logs
 *.log
 
-
-echo "cx_agent/lib/" >> .gitignore
+# Library folder
+cx_agent/lib/
