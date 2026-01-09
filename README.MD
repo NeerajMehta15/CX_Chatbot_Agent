@@ -2,11 +2,29 @@
 
 A virtual assistant for Stanza Living residents, powered by **LangChain**, **Groq AI**, and **Streamlit**. This assistant handles user queries, provides answers from FAQs, creates support tickets, and collects feedback.
 
+## 🚀 Try It Now - Public Demo
+
+**This chatbot is ready for public deployment!** Users can access it with their own Groq API key (free tier available).
+
+### Quick Start for Users:
+1. Visit the deployed app (see deployment section below)
+2. Get a free Groq API key from [console.groq.com](https://console.groq.com)
+3. Enter your API key in the sidebar
+4. Start chatting with the CX Agent!
+
+### 📦 Deploy Your Own Instance:
+See **[DEPLOYMENT.md](DEPLOYMENT.md)** for complete deployment instructions including:
+- Streamlit Cloud (free & easy)
+- Docker deployment
+- Local development setup
+
 ---
 
 ## Overview
 
 The CX Agent is designed to provide real-time support to Stanza Living residents. It classifies incoming queries, retrieves relevant answers from a FAQ database, and creates support tickets when needed.
+
+**🔒 Privacy:** User API keys are stored only in session memory and never saved to disk or database.
 
 ---
 

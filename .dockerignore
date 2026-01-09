@@ -1,0 +1,38 @@
+# Git
+.git
+.gitignore
+
+# Python
+__pycache__/
+*.py[cod]
+*.so
+.Python
+*.egg-info/
+
+# Virtual environments
+.venv/
+env/
+venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Jupyter
+.ipynb_checkpoints/
+notebook/
+
+# Environment files
+.env
+
+# Documentation
+*.md
+!README.MD
+
+# Vector store (will be regenerated)
+data/chroma/
+
+# Logs
+*.log

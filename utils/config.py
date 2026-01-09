@@ -2,13 +2,14 @@ from dotenv import load_dotenv
 import os
 from pathlib import Path
 
-# Load .env from project root (one level above /utils)
+# Load .env from project root (one level above /utils) - optional for local dev
 env_path = Path(__file__).parent.parent / ".env"
-load_dotenv(dotenv_path=env_path)
+if env_path.exists():
+    load_dotenv(dotenv_path=env_path)
 
-# API keys
-HUGGINGFACE_API_TOKEN = os.getenv("HUGGINGFACE_API_TOKEN")
-GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+# API keys - can be set at runtime via app.py
+HUGGINGFACE_API_TOKEN = os.getenv("HUGGINGFACE_API_TOKEN", "")
+GROQ_API_KEY = os.getenv("GROQ_API_KEY", "")
 
 # Embedding & vector store settings
 EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL", "sentence-transformers/all-MiniLM-L6-v2")
