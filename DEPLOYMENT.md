@@ -232,16 +232,4 @@ For issues or questions:
 - Check Streamlit documentation: [docs.streamlit.io](https://docs.streamlit.io)
 - Groq API docs: [console.groq.com/docs](https://console.groq.com/docs)
 
----
 
-## 📝 License
-
-[Add your license information here]
-
----
-
-## 🎉 Ready to Deploy!
-
-Follow the steps above for your preferred deployment method. The easiest option for public demos is **Streamlit Cloud** - it's free, fast, and requires zero DevOps knowledge!
-
-**Happy Deploying! 🚀**
