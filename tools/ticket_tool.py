@@ -40,7 +40,7 @@ def create_ticket(user_id: str, issue: str, file_path):
         file_path (str): Path to the tickets CSV file.
 
     Returns:
-        str: Confirmation message with ticket ID.
+        str: The ticket ID of the newly created ticket.
     """
     df = load_ticket_data(file_path)
 
@@ -55,4 +55,4 @@ def create_ticket(user_id: str, issue: str, file_path):
     df = pd.concat([df, pd.DataFrame([new_ticket])], ignore_index=True)
     df.to_csv(file_path, index=False)
 
-    return f"A support ticket has been created for you. Your ticket ID is {new_ticket['ticket_id']}."
+    return new_ticket['ticket_id']
